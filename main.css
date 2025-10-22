@@ -176,21 +176,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); /* Same as login page */
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     padding: 20px;
 }
 
 .map-container {
     width: 100%;
-    max-width: 420px; /* Phone width */
-    height: calc(100vh - 40px); /* Account for padding */
+    max-width: 420px;
+    height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
     background: #fff;
-    border-radius: 30px; /* Rounded corners like login page */
-    border: 3px solid rgba(255, 255, 255, 0.8); /* White border */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); /* Strong shadow */
-    overflow: hidden; /* Keep content inside rounded corners */
+    border-radius: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
     position: relative;
 }
 
@@ -200,7 +200,6 @@ body {
     z-index: 1;
 }
 
-/* Make sure Leaflet map fills the container */
 #map {
     width: 100%;
     height: 100%;
@@ -266,10 +265,10 @@ body {
 
 .bottom-nav {
     background: #fff;
-    padding: 10px 20px 20px;
+    padding: 10px 20px 10px;
     display: flex;
     justify-content: center;
-    gap: 10px; /* Add gap between buttons */
+    gap: 10px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     z-index: 1000;
 }
@@ -277,7 +276,7 @@ body {
 .nav-btn {
     background: #f8f9fa;
     border: none;
-    padding: 12px 24px; /* Reduced padding since there are 2 buttons now */
+    padding: 12px 24px;
     border-radius: 25px;
     display: flex;
     align-items: center;
@@ -307,8 +306,7 @@ body {
     background: #c82333;
 }
 
-
-/* Responsive - remove phone frame on actual mobile */
+/* Responsive - FIXED MOBILE BOTTOM NAV */
 @media (max-width: 480px) {
     #map-page.active {
         background: #fff;
@@ -322,20 +320,26 @@ body {
         border: none;
         box-shadow: none;
     }
-
+    
     .info-grid {
         gap: 10px;
     }
-
+    
     .info-item {
         padding: 12px;
     }
-
+    
     .info-label {
         font-size: 11px;
     }
-
+    
     .info-value {
         font-size: 14px;
+    }
+    
+    /* FIX: Add padding to bottom-nav for mobile safe area */
+    .bottom-nav {
+        padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+        padding-bottom: max(57px, env(safe-area-inset-bottom));
     }
 }

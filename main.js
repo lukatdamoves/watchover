@@ -13,6 +13,15 @@ const logoutBtn = document.getElementById('logoutBtn');
 const loginPage = document.getElementById('login-page');
 const mapPage = document.getElementById('map-page');
 
+// Guide Modal Elements
+const guideModal = document.getElementById('guideModal');
+const guideClose = document.getElementById('guideClose');
+const guidePrev = document.getElementById('guidePrev');
+const guideNext = document.getElementById('guideNext');
+const guideFinish = document.getElementById('guideFinish');
+const guideSlidesWrapper = document.getElementById('guideSlidesWrapper');
+const guideDotsContainer = document.getElementById('guideDots');
+
 // Map variables
 let map;
 let marker;
@@ -36,12 +45,19 @@ let lastValidLocation = {
     battery: null
 };
 
+// Guide Modal Variables
+const slides = document.querySelectorAll('.guide-slide');
+let currentSlide = 0;
+
 // Check if user is already logged in on page load
 window.addEventListener('DOMContentLoaded', function() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (isLoggedIn === 'true') {
         showPage(mapPage);
     }
+    
+    // Initialize guide modal
+    initializeGuideModal();
 });
 
 // Toggle password visibility
@@ -321,10 +337,87 @@ function stopLocationUpdates() {
     }
 }
 
+// ========== GUIDE MODAL FUNCTIONS ==========
+
+// Initialize Guide Modal
+function initializeGuideModal() {
+    // Create dots for each slide
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('guide-dot');
+        if (index === 0) dot.classList.add('active');
+        guideDotsContainer.appendChild(dot);
+    });
+
+    updateGuideSlide();
+}
+
+// Update Guide Slide Position
+function updateGuideSlide() {
+    guideSlidesWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update dots
+    const dots = document.querySelectorAll('.guide-dot');
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+
+    // Update buttons
+    guidePrev.disabled = currentSlide === 0;
+    
+    if (currentSlide === slides.length - 1) {
+        guideNext.style.display = 'none';
+        guideFinish.style.display = 'block';
+    } else {
+        guideNext.style.display = 'block';
+        guideFinish.style.display = 'none';
+    }
+}
+
+// Open Guide Modal
+function openGuide() {
+    guideModal.classList.add('active');
+    currentSlide = 0;
+    updateGuideSlide();
+    console.log('Guide modal opened');
+}
+
+// Close Guide Modal
+function closeGuide() {
+    guideModal.classList.remove('active');
+    console.log('Guide modal closed');
+}
+
 // Guide button click handler
-guideBtn.addEventListener('click', function() {
-    console.log('Guide clicked');
-    alert('Guide page coming soon!');
+guideBtn.addEventListener('click', openGuide);
+
+// Guide close button
+guideClose.addEventListener('click', closeGuide);
+
+// Guide finish button
+guideFinish.addEventListener('click', closeGuide);
+
+// Guide previous button
+guidePrev.addEventListener('click', () => {
+    if (currentSlide > 0) {
+        currentSlide--;
+        updateGuideSlide();
+    }
+});
+
+// Guide next button
+guideNext.addEventListener('click', () => {
+    if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateGuideSlide();
+    }
+});
+
+// Close modal when clicking outside
+guideModal.addEventListener('click', (e) => {
+    if (e.target === guideModal) {
+        closeGuide();
+    }
 });
 
 // QR code click handler

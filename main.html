@@ -65,6 +65,120 @@
         </div>
     </div>
 
+    <!-- Guide Modal -->
+    <div id="guideModal" class="guide-modal">
+        <div class="guide-content">
+            <button class="guide-close" id="guideClose">&times;</button>
+            
+            <div class="guide-slides">
+                <div class="guide-slides-wrapper" id="guideSlidesWrapper">
+                    
+                    <!-- Slide 1: Welcome -->
+                    <div class="guide-slide">
+                        <h2>Welcome to WATCHOVER</h2>
+                        <p>This guide will help you set up and use your GPS tracking device. Follow these simple steps to get started with real-time location monitoring.</p>
+                        <div class="guide-image-placeholder">
+                            Welcome Screen
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Device Setup -->
+                    <div class="guide-slide">
+                        <h2>First Time Setup</h2>
+                        <p>To access your device for the first time, scan the QR code located on the back of your WATCHOVER device using your phone's camera.</p>
+                        <div class="guide-image-placeholder">
+                            [Photo: QR code on back of device]
+                        </div>
+                        <p>The QR code contains your unique Device ID. Your default password is <strong>12345</strong>. After scanning, these credentials will automatically fill in the login fields.</p>
+                        <p><strong>Important:</strong> For security, please change your password after your first login.</p>
+                    </div>
+
+                    <!-- Slide 3: Map Interface -->
+                    <div class="guide-slide">
+                        <h2>Understanding the Map</h2>
+                        <p>The map displays the real-time location of your device. The marker shows the current position, and you can zoom in/out or drag to explore the surrounding area.</p>
+                        <div class="guide-image-placeholder">
+                            [Screenshot: Map interface with location marker]
+                        </div>
+                        <p>The map automatically updates when new location data is received from your device.</p>
+                    </div>
+
+                    <!-- Slide 4: Information Panel -->
+                    <div class="guide-slide">
+                        <h2>Device Information</h2>
+                        <p>The information panel displays essential tracking details:</p>
+                        
+                        <div class="guide-info-grid">
+                            <div class="guide-info-item">
+                                <div class="guide-icon-placeholder">Location Icon</div>
+                                <div class="guide-info-text">
+                                    <h4>Current Location</h4>
+                                    <p>Shows the address or coordinates of the device's latest position</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-info-item">
+                                <div class="guide-icon-placeholder">Clock Icon</div>
+                                <div class="guide-info-text">
+                                    <h4>Time of Last Update</h4>
+                                    <p>Displays when the device last transmitted location data</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-info-item">
+                                <div class="guide-icon-placeholder">Signal Icon</div>
+                                <div class="guide-info-text">
+                                    <h4>Device Status</h4>
+                                    <p>Indicates whether the device is actively transmitting data</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-info-item">
+                                <div class="guide-icon-placeholder">Battery Icon</div>
+                                <div class="guide-info-text">
+                                    <h4>Battery Level</h4>
+                                    <p>Shows the remaining battery percentage of your device</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Activity History -->
+                    <div class="guide-slide">
+                        <h2>Viewing Activity History</h2>
+                        <p>Click the "Activity History" button to view the device's location timeline and movement patterns over time.</p>
+                        <div class="guide-image-placeholder">
+                            [Screenshot: Activity History button interface]
+                        </div>
+                        <p>This feature allows you to track where the device has been and review past locations.</p>
+                    </div>
+
+                    <!-- Slide 6: Navigation -->
+                    <div class="guide-slide">
+                        <h2>Menu Navigation</h2>
+                        <p>Use the bottom navigation bar to move between sections:</p>
+                        <div class="guide-image-placeholder">
+                            [Screenshot: Bottom navigation bar]
+                        </div>
+                        <p><strong>Home:</strong> Returns to the main map view<br>
+                        <strong>Logout:</strong> Securely exits your session</p>
+                        <p>You're all set! Start tracking your device now.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="guide-navigation">
+                <div class="guide-dots" id="guideDots"></div>
+                <div class="guide-nav-buttons">
+                    <button class="guide-btn-nav guide-btn-prev" id="guidePrev">Previous</button>
+                    <button class="guide-btn-nav guide-btn-next" id="guideNext">Next</button>
+                    <button class="guide-btn-nav guide-btn-finish" id="guideFinish" style="display: none;">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Map Page -->
     <div id="map-page" class="page">
         <div class="map-container">
@@ -101,7 +215,6 @@
                 </button>
             </div>
 
-            <!-- Bottom Navigation -->
             <!-- Bottom Navigation -->
             <div class="bottom-nav">
                 <button class="nav-btn active" id="homeBtn">

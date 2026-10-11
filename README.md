@@ -114,7 +114,7 @@ The database dump ships with synthetic demo data:
 | Account | Credentials |
 |---|---|
 | Dashboard login | `demo@example.com` / `watchover-demo` |
-| Demo device password | `12345` (the factory default the app forces you to change) |
+| Demo device password | `12345` (the factory default the app forces users to change) |
 
 > The demo data is fake — GPS points, addresses, and the user row are
 > placeholders. Generate your own VAPID keys with
@@ -157,7 +157,7 @@ watchover/
 
 ## ⚠️ Known Limitations
 
-Documented honestly, as a capstone project:
+The following limitations are known:
 
 - **Device password sync** — if the device password is changed on the website,
   the A9G firmware must be re-flashed with the new value (no OTA sync).
@@ -184,6 +184,5 @@ Gardner College Diliman.
 
 ## 📄 License
 
-No license has been selected yet. If you plan to keep this repository public,
-consider adding a [LICENSE](https://choosealicense.com/) file (e.g. MIT) so
-others know how they may use the code.
+Developed for academic purposes as a capstone requirement. All rights reserved
+by the project team.

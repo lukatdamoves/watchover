@@ -1,0 +1,50 @@
+Options -Indexes
+
+<FilesMatch "(^\.env|^\.git|composer\.(json|lock)|^\.htaccess)">
+    Require all denied
+</FilesMatch>
+
+RewriteEngine On
+RewriteRule ^vendor(/|$) - [F,L]
+
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+<FilesMatch "\.(css|js|html)$">
+    Header set Cache-Control "public, max-age=604800, must-revalidate"
+</FilesMatch>
+
+<FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp)$">
+    Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+# 1. Prevent Apache from automatically adding slashes to directories
+DirectorySlash Off
+
+# 2. Rewrite base path
+RewriteBase /
+
+# Force /login/login.html to redirect to /login
+RewriteCond %{THE_REQUEST} \ /login/login\.html [NC]
+RewriteRule ^login/login\.html$ /login [R=301,L]
+
+# Force /dashboard/dashboard.html to redirect to /dashboard
+RewriteCond %{THE_REQUEST} \ /dashboard/dashboard\.html [NC]
+RewriteRule ^dashboard/dashboard\.html$ /dashboard [R=301,L]
+
+# --- NEW SECTION: Redirect Root to Login ---
+# If the request is for the homepage (empty string), redirect to /login
+RewriteRule ^$ /login [R=301,L]
+# -------------------------------------------
+
+# 3. Handle /login (no slash)
+RewriteRule ^login$ login/login.html [L]
+
+# 4. Handle /dashboard (no slash)
+RewriteRule ^dashboard$ dashboard/dashboard.html [L]
+
+# 5. Redirect /login/ (with slash) to /login (no slash)
+RewriteCond %{THE_REQUEST} \ /login/(\ |$|\?)
+RewriteRule ^login/$ /login [R=301,L]

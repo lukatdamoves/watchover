@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+
+    <title>WatchOver - Login</title>
+    <link rel="icon" type="image/x-icon" href="/favicon_icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://unpkg.com/" />
+    <link rel="stylesheet" href="../login/login.css">
+    <link rel="stylesheet" href="../guide/guide.css">
+</head>
+
+<body>
+
+    <div id="language-switcher" class="language-switcher">
+        <button class="lang-btn notranslate" onclick="switchLanguage('en')" title="English">EN</button>
+        <button class="lang-btn notranslate" onclick="switchLanguage('tl')" title="Tagalog">PH</button>
+    </div>
+
+    <div id="login-page" class="page active">
+        <div class="container">
+            <div class="title-container">
+                <img src="../images/logo.png" alt="WatchOver Logo" class="logo">
+                <h1 class="title" data-i18n="login.title">WatchOver</h1>
+            </div>
+
+
+            <div class="login-form">
+                <div class="input-group">
+                    <label data-i18n="login.email">Email</label>
+                    <input type="email" id="email" data-i18n="login.emailPlaceholder" placeholder="Enter your email">
+                </div>
+
+                <div class="input-group">
+                    <label for="password" data-i18n="login.password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" data-i18n="login.passwordPlaceholder"
+                            placeholder="Enter your password">
+                        <button class="toggle-password" id="togglePassword">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <a href="#" class="forgot-password-link" id="forgotPasswordLink"
+                        data-i18n="login.forgotPassword">Forgot Password?</a>
+                </div>
+
+                <button class="login-btn" id="loginBtn" data-i18n="login.loginBtn">Login</button>
+            </div>
+
+
+            <div class="account-section">
+                <p class="account-text" data-i18n="login.noAccount">Don't have an account?</p>
+                <button class="create-account-btn" id="createAccountBtn" data-i18n="login.createAccountBtn">Create
+                    Account</button>
+            </div>
+
+            <button class="guide-btn" id="guideBtn" data-i18n="login.guideBtn">Guide</button>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="guide-modal">
+        <div class="guide-content">
+            <button class="guide-close" id="registerClose">&times;</button>
+
+            <div class="register-container">
+                <h2 class="register-title" data-i18n="register.title">Create Account</h2>
+                <p class="register-subtitle" data-i18n="register.subtitle">Join WatchOver to track your devices</p>
+
+                <div class="register-form">
+                    <div class="input-group">
+                        <label data-i18n="register.email">Email</label>
+                        <input type="email" id="registerEmail" data-i18n="register.emailPlaceholder"
+                            placeholder="Enter your email">
+                    </div>
+
+                    <div class="input-group">
+                        <label data-i18n="register.password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="registerPassword" data-i18n="register.passwordPlaceholder"
+                                placeholder="Create a password (min 6 characters)">
+                            <button class="toggle-password" id="toggleRegisterPassword">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label data-i18n="register.confirmPassword">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="registerConfirmPassword"
+                                data-i18n="register.confirmPasswordPlaceholder" placeholder="Confirm your password">
+                            <button class="toggle-password" id="toggleRegisterConfirmPassword">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="login-btn" id="registerBtn" data-i18n="register.registerBtn">Create Account</button>
+                </div>
+
+                <div class="register-footer">
+                    <p class="register-text" data-i18n="register.haveAccount">Already have an account?</p>
+                    <button class="register-login-btn" id="backToLogin" data-i18n="register.loginBtn">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="verification-modal">
+        <div class="verification-content">
+            <button class="guide-close" id="forgotPasswordClose">&times;</button>
+            <div class="verification-icon">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00ff26" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+            </div>
+            <h2 class="verification-title">Reset Password</h2>
+            <p class="verification-message">
+                Enter your email address and we'll send you a link to reset your password.
+            </p>
+            <div class="input-group">
+                <input type="email" id="forgotPasswordEmail" placeholder="Enter your email"
+                    style="width: 100%; padding: 0.75rem; border-radius: 0.625rem; border: 1px solid #3a3a3a; background: #1a1a1a; color: #e0e0e0; font-size: 1rem;">
+            </div>
+            <button id="sendResetLinkBtn" class="verification-ok-btn">Send Reset Link</button>
+        </div>
+    </div>
+
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="guide-modal">
+        <div class="guide-content guide-toc-content">
+            <button class="guide-close" id="guideClose">&times;</button>
+
+            <!-- Table of Contents (Landing Page) -->
+            <div class="guide-toc-page" id="guideTocPage">
+                <div class="guide-toc-header">
+                    <h2 data-i18n="guide.tocTitle">User Guide</h2>
+                    <p data-i18n="guide.tocSubtitle">Select a topic to learn more</p>
+                </div>
+                <div class="guide-toc-grid">
+                    <button class="guide-toc-card" data-section="1">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc1">Creating Account</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="2">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc2">Dashboard Map</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="3">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc3">Dashboard Panel</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="4">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc4">Dashboard Buttons</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="5">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="18" width="20" height="4" rx="1"></rect>
+                                <line x1="6" y1="20" x2="6" y2="20"></line>
+                                <line x1="12" y1="20" x2="12" y2="20"></line>
+                                <line x1="18" y1="20" x2="18" y2="20"></line>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc5">Bottom Navigation</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="6">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc6">Translation</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="7">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc7">Add/Remove Device</span>
+                    </button>
+                    <button class="guide-toc-card" data-section="8">
+                        <div class="guide-toc-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M15 7a2 2 0 0 1 2 2m4 0a6 6 0 0 1-7.743 5.743L11 17H9v2H7v2H4a1 1 0 0 1-1-1v-2.586a1 1 0 0 1 .293-.707l5.964-5.964A6 6 0 1 1 21 9z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span data-i18n="guide.toc8">Forgot Password</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section 1: Creating Account -->
+            <div class="guide-section-page" id="guideSection1">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">1</span>
+                        <h2 data-i18n="guide.sec1Title">Creating Account</h2>
+                    </div>
+                    <p data-i18n="guide.sec1Intro">Follow these steps to create your WatchOver account:</p>
+                    <div class="guide-steps">
+                        <div class="guide-step">
+                            <div class="guide-step-num">1</div>
+                            <div class="guide-step-content">
+                                <h4 data-i18n="guide.sec1Step1Title">Enter Email</h4>
+                                <p data-i18n="guide.sec1Step1Desc">Provide a valid email address that you have access
+                                    to.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">2</div>
+                            <div class="guide-step-content">
+                                <h4 data-i18n="guide.sec1Step2Title">Create Password</h4>
+                                <p data-i18n="guide.sec1Step2Desc">Choose a secure password with at least 6 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">3</div>
+                            <div class="guide-step-content">
+                                <h4 data-i18n="guide.sec1Step3Title">Confirm Password</h4>
+                                <p data-i18n="guide.sec1Step3Desc">Re-enter your password to confirm it matches.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">4</div>
+                            <div class="guide-step-content">
+                                <h4 data-i18n="guide.sec1Step4Title">Verify Email</h4>
+                                <p data-i18n="guide.sec1Step4Desc">Check your inbox and click the verification link we
+                                    send you.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">5</div>
+                            <div class="guide-step-content">
+                                <h4 data-i18n="guide.sec1Step5Title">Login</h4>
+                                <p data-i18n="guide.sec1Step5Desc">Once verified, return to the login page and sign in
+                                    with your credentials.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Dashboard Map -->
+            <div class="guide-section-page" id="guideSection2">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">2</span>
+                        <h2 data-i18n="guide.sec2Title">Dashboard Map</h2>
+                    </div>
+                    <p data-i18n="guide.sec2Intro">The map displays real-time location data for your device:</p>
+                    <div class="guide-image-center">
+                        <img src="../images/guidepic3.PNG" class="guidepic3" alt="Map View">
+                    </div>
+                    <div class="guide-feature-list">
+                        <div class="guide-feature">
+                            <div class="guide-feature-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="guide-feature-text">
+                                <h4 data-i18n="guide.sec2Feature1Title">Red Pin Marker</h4>
+                                <p data-i18n="guide.sec2Feature1Desc">Shows the current location of your device. This
+                                    updates in real-time when new GPS data is received.</p>
+                            </div>
+                        </div>
+                        <div class="guide-feature">
+                            <div class="guide-feature-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" stroke-dasharray="5,5"></circle>
+                                </svg>
+                            </div>
+                            <div class="guide-feature-text">
+                                <h4 data-i18n="guide.sec2Feature2Title">Geofence Circle</h4>
+                                <p data-i18n="guide.sec2Feature2Desc">The circle represents your safe zone boundary.
+                                    You'll be notified if the device leaves this area.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Dashboard Panel -->
+            <div class="guide-section-page" id="guideSection3">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">3</span>
+                        <h2 data-i18n="guide.sec3Title">Dashboard Panel</h2>
+                    </div>
+                    <p data-i18n="guide.sec3Intro">The dashboard panel displays all your device information:</p>
+                    <div class="guide-info-grid">
+                        <div class="guide-info-item">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item1Title">Device Section</h4>
+                                <p data-i18n="guide.sec3Item1Desc">At the top, you can add or remove your WatchOver
+                                    devices.</p>
+                            </div>
+                        </div>
+                        <div class="guide-info-item">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item2Title">Wearer Name</h4>
+                                <p data-i18n="guide.sec3Item2Desc">The name of the person wearing the device. You can
+                                    customize this.</p>
+                            </div>
+                        </div>
+                        <div class="guide-info-item">
+                            <img src="../watchover_icons/currentlocation.png" alt="Location" class="guide-info-icon">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item3Title">Current Location</h4>
+                                <p data-i18n="guide.sec3Item3Desc">Shows the address or coordinates of the device's
+                                    latest position.</p>
+                            </div>
+                        </div>
+                        <div class="guide-info-item">
+                            <img src="../watchover_icons/timeoflastupdate.png" alt="Time" class="guide-info-icon">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item4Title">Time of Last Update</h4>
+                                <p data-i18n="guide.sec3Item4Desc">Displays when the device last transmitted location
+                                    data.</p>
+                            </div>
+                        </div>
+                        <div class="guide-info-item">
+                            <img src="../watchover_icons/batterylevel.png" alt="Battery" class="guide-info-icon">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item5Title">Battery Level</h4>
+                                <p data-i18n="guide.sec3Item5Desc">Shows the remaining battery percentage of your
+                                    device.</p>
+                            </div>
+                        </div>
+                        <div class="guide-info-item">
+                            <img src="../watchover_icons/devicestatus.png" alt="Status" class="guide-info-icon">
+                            <div class="guide-info-text">
+                                <h4 data-i18n="guide.sec3Item6Title">Device Status</h4>
+                                <p data-i18n="guide.sec3Item6Desc">Indicates whether the device is Online or Offline.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Dashboard Buttons -->
+            <div class="guide-section-page" id="guideSection4">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">4</span>
+                        <h2 data-i18n="guide.sec4Title">Dashboard Buttons</h2>
+                    </div>
+                    <p data-i18n="guide.sec4Intro">The dashboard has 3 action buttons:</p>
+                    <div class="guide-button-list">
+                        <div class="guide-button-item">
+                            <div class="guide-button-icon vibrate">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M4 4l2 2M20 4l-2 2M4 20l2-2M20 20l-2-2M8 6h8v12H8z"></path>
+                                </svg>
+                            </div>
+                            <div class="guide-button-text">
+                                <h4 data-i18n="guide.sec4Btn1Title">Vibrate</h4>
+                                <p data-i18n="guide.sec4Btn1Desc">Sends a vibration alert to the device for 10 seconds.
+                                    Useful for getting the wearer's attention.</p>
+                            </div>
+                        </div>
+                        <div class="guide-button-item">
+                            <div class="guide-button-icon password">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <div class="guide-button-text">
+                                <h4 data-i18n="guide.sec4Btn2Title">Change Device Password</h4>
+                                <p data-i18n="guide.sec4Btn2Desc">Update the password for your device to enhance
+                                    security.</p>
+                            </div>
+                        </div>
+                        <div class="guide-button-item">
+                            <div class="guide-button-icon history">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div class="guide-button-text">
+                                <h4 data-i18n="guide.sec4Btn3Title">Activity History</h4>
+                                <p data-i18n="guide.sec4Btn3Desc">View past location records and movement history of
+                                    your device.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-image-center">
+                        <img src="../images/guidepic4.PNG" class="guidepic4" alt="Activity History">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Bottom Navigation -->
+            <div class="guide-section-page" id="guideSection5">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">5</span>
+                        <h2 data-i18n="guide.sec5Title">Bottom Navigation</h2>
+                    </div>
+                    <p data-i18n="guide.sec5Intro">The bottom navigation bar has 3 buttons:</p>
+                    <div class="guide-image-center">
+                        <img src="../images/guidepic5.PNG" class="guidepic5" alt="Bottom Navigation">
+                    </div>
+                    <div class="guide-nav-list">
+                        <div class="guide-nav-item">
+                            <div class="guide-nav-icon geofence">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="guide-nav-text">
+                                <h4 data-i18n="guide.sec5Nav1Title">Geofence</h4>
+                                <p data-i18n="guide.sec5Nav1Desc">Click to draw a circle on the map defining a safe zone
+                                    for your device.</p>
+                            </div>
+                        </div>
+                        <div class="guide-nav-item">
+                            <div class="guide-nav-icon password">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <div class="guide-nav-text">
+                                <h4 data-i18n="guide.sec5Nav2Title">Change Account Password</h4>
+                                <p data-i18n="guide.sec5Nav2Desc">Update your account login password for security.</p>
+                            </div>
+                        </div>
+                        <div class="guide-nav-item">
+                            <div class="guide-nav-icon logout">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                            </div>
+                            <div class="guide-nav-text">
+                                <h4 data-i18n="guide.sec5Nav3Title">Logout</h4>
+                                <p data-i18n="guide.sec5Nav3Desc">Securely sign out of your WatchOver account.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Translation -->
+            <div class="guide-section-page" id="guideSection6">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">6</span>
+                        <h2 data-i18n="guide.sec6Title">Translation</h2>
+                    </div>
+                    <p data-i18n="guide.sec6Intro">WatchOver supports multiple languages:</p>
+                    <div class="guide-lang-demo">
+                        <div class="guide-lang-option">
+                            <div class="guide-lang-btn-demo">EN</div>
+                            <span data-i18n="guide.sec6LangEn">English</span>
+                        </div>
+                        <div class="guide-lang-option">
+                            <div class="guide-lang-btn-demo">PH</div>
+                            <span data-i18n="guide.sec6LangTl">Tagalog (Filipino)</span>
+                        </div>
+                    </div>
+                    <p data-i18n="guide.sec6Tip">Use the language buttons at the top right corner of the screen to
+                        switch between English and Tagalog.</p>
+                </div>
+            </div>
+
+            <!-- Section 7: Add/Remove Device -->
+            <div class="guide-section-page" id="guideSection7">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">7</span>
+                        <h2 data-i18n="guide.sec7Title">Add / Remove Device</h2>
+                    </div>
+                    <div class="guide-subsection">
+                        <h3 data-i18n="guide.sec7AddTitle">Adding a Device</h3>
+                        <div class="guide-steps">
+                            <div class="guide-step">
+                                <div class="guide-step-num">1</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Add1">Find the Device ID sticker on the back of your
+                                        WatchOver device.</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <div class="guide-step-num">2</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Add2">Click the "Add Device" button in the dashboard.</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <div class="guide-step-num">3</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Add3">Enter the Device ID and default password (12345).</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <div class="guide-step-num">4</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Add4">You will be prompted to change the device password
+                                        immediately.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-subsection">
+                        <h3 data-i18n="guide.sec7RemoveTitle">Removing a Device</h3>
+                        <div class="guide-steps">
+                            <div class="guide-step">
+                                <div class="guide-step-num">1</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Remove1">Click the "X" button next to the device name in the
+                                        device list.</p>
+                                </div>
+                            </div>
+                            <div class="guide-step">
+                                <div class="guide-step-num">2</div>
+                                <div class="guide-step-content">
+                                    <p data-i18n="guide.sec7Remove2">Confirm the removal when prompted.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Forgot Password -->
+            <div class="guide-section-page" id="guideSection8">
+                <button class="guide-back-btn" data-back>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span data-i18n="guide.back">Back</span>
+                </button>
+                <div class="guide-section-content">
+                    <div class="guide-section-header">
+                        <span class="guide-section-number">8</span>
+                        <h2 data-i18n="guide.sec8Title">Forgot Password</h2>
+                    </div>
+                    <p data-i18n="guide.sec8Intro">If you forgot your account password, follow these steps to recover
+                        it:</p>
+                    <div class="guide-steps">
+                        <div class="guide-step">
+                            <div class="guide-step-num">1</div>
+                            <div class="guide-step-content">
+                                <p data-i18n="guide.sec8Step1">Click "Forgot Password?" on the login page.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">2</div>
+                            <div class="guide-step-content">
+                                <p data-i18n="guide.sec8Step2">Enter the email address associated with your account.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">3</div>
+                            <div class="guide-step-content">
+                                <p data-i18n="guide.sec8Step3">Check your inbox for a password reset link.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">4</div>
+                            <div class="guide-step-content">
+                                <p data-i18n="guide.sec8Step4">Click the link and create a new password.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-step-num">5</div>
+                            <div class="guide-step-content">
+                                <p data-i18n="guide.sec8Step5">Return to the login page and sign in with your new
+                                    password.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-tip-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <p data-i18n="guide.sec8Tip">If you don't see the email, check your spam folder.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Email Verification Success Modal (MOVED HERE - OUTSIDE GUIDE MODAL) -->
+    <div id="verificationModal" class="verification-modal">
+        <div class="verification-content">
+            <div class="verification-icon">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00ff26" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2 class="verification-title">Check Your Email!</h2>
+            <p class="verification-message">
+                We've sent a verification link to your email address.
+                Please check your inbox and click the link to activate your account.
+            </p>
+            <div class="verification-note">
+                <p>Don't see the email? Check your spam folder.</p>
+            </div>
+            <button id="verificationOkBtn" class="verification-ok-btn">Got it!</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="../login/common.js"></script>
+    <script src="../guide/guide.js"></script>
+    <script src="../login/login.js"></script>
+
+</body>
+
+</html>

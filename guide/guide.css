@@ -1,0 +1,813 @@
+/* ========== GUIDE BUTTON (Login Page) ========== */
+.guide-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: #3a3a3a;
+    border: none;
+    border-radius: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.guide-btn:hover {
+    background: #4a4a4a;
+    transform: translateY(-2px);
+}
+
+.guide-btn:active {
+    transform: translateY(0);
+}
+
+/* ========== GUIDE MODAL OVERLAY ========== */
+.guide-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    inset: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.guide-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.guide-modal.active .guide-content {
+    animation: guideSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes guideSlideUp {
+    from {
+        transform: translateY(24px) scale(0.97);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========== GUIDE CONTENT CONTAINER ========== */
+.guide-content {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 1.25rem;
+    width: 92%;
+    max-width: 28rem;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== CLOSE BUTTON ========== */
+.guide-close {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #888;
+    z-index: 10;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.guide-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    transform: scale(1.05);
+}
+
+/* ========== TABLE OF CONTENTS PAGE ========== */
+.guide-toc-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.guide-toc-page {
+    padding: 2rem 1.5rem 1.5rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 1rem);
+    max-height: calc(90dvh - 1rem);
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+.guide-toc-page::-webkit-scrollbar {
+    width: 4px;
+}
+
+.guide-toc-page::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.guide-toc-page.hidden {
+    display: none;
+}
+
+.guide-toc-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.guide-toc-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f0f0f0;
+    margin-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.guide-toc-header p {
+    color: #777;
+    font-size: 0.8rem;
+}
+
+/* ========== TOC GRID ========== */
+.guide-toc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.625rem;
+}
+
+.guide-toc-card {
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 0.875rem;
+    padding: 1rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: center;
+}
+
+.guide-toc-card:hover {
+    background: #2a2a2a;
+    border-color: rgba(0, 255, 38, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 255, 38, 0.1);
+}
+
+.guide-toc-card:active {
+    transform: translateY(-1px);
+}
+
+.guide-toc-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba(0, 255, 38, 0.08);
+    border: 1px solid rgba(0, 255, 38, 0.12);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff26;
+    transition: all 0.25s ease;
+}
+
+.guide-toc-card:hover .guide-toc-icon {
+    background: rgba(0, 255, 38, 0.12);
+    border-color: rgba(0, 255, 38, 0.25);
+}
+
+.guide-toc-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.guide-toc-card span {
+    color: #ccc;
+    font-weight: 600;
+    font-size: 0.78rem;
+    line-height: 1.3;
+}
+
+/* ========== SECTION PAGES ========== */
+.guide-section-page {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    max-height: calc(90vh - 1rem);
+    max-height: calc(90dvh - 1rem);
+}
+
+.guide-section-page.active {
+    display: flex;
+}
+
+/* ========== BACK BUTTON ========== */
+.guide-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.75rem;
+    margin: 0.875rem 0.875rem 0;
+    background: transparent;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.5rem;
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: fit-content;
+    flex-shrink: 0;
+}
+
+.guide-back-btn:hover {
+    border-color: #00ff26;
+    color: #00ff26;
+    background: rgba(0, 255, 38, 0.04);
+}
+
+.guide-back-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== SECTION CONTENT ========== */
+.guide-section-content {
+    padding: 0.75rem 1.25rem 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+.guide-section-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.guide-section-content::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+/* ========== SECTION HEADER ========== */
+.guide-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+}
+
+.guide-section-number {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: #00ff26;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.guide-section-header h2 {
+    color: #f0f0f0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.guide-section-content > p {
+    color: #999;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    font-size: 0.82rem;
+}
+
+/* ========== STEPS (Sections 1, 7, 8) ========== */
+.guide-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.guide-step {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.625rem;
+    transition: background 0.2s ease;
+}
+
+.guide-step:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.guide-step-num {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: rgba(0, 255, 38, 0.1);
+    border: 1px solid rgba(0, 255, 38, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ff26;
+    font-weight: 700;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.guide-step-content h4 {
+    color: #ddd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+
+.guide-step-content p {
+    color: #888;
+    font-size: 0.78rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== GUIDE IMAGES ========== */
+.guide-image-center {
+    text-align: center;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: #232323;
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+}
+
+.guidepic3 {
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.guidepic4,
+.guidepic5 {
+    width: 100%;
+    height: auto;
+    max-width: 22rem;
+    border-radius: 0.5rem;
+}
+
+/* ========== FEATURE LIST (Section 2 - Map) ========== */
+.guide-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.guide-feature {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #262626;
+    border: 1px solid #333;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.guide-feature:hover {
+    border-color: #444;
+}
+
+.guide-feature-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.guide-feature-text h4 {
+    color: #ddd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+
+.guide-feature-text p {
+    color: #888;
+    font-size: 0.76rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== INFO GRID (Section 3 - Panel) ========== */
+.guide-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.guide-info-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.625rem 0.75rem;
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 0.625rem;
+    transition: border-color 0.2s ease;
+}
+
+.guide-info-item:hover {
+    border-color: #444;
+}
+
+.guide-info-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 0.375rem;
+    object-fit: contain;
+}
+
+.guide-info-text h4 {
+    margin: 0 0 0.15rem 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ddd;
+}
+
+.guide-info-text p {
+    margin: 0;
+    font-size: 0.76rem;
+    color: #888;
+    line-height: 1.45;
+}
+
+/* ========== INFO ROW (Alternative Layout) ========== */
+.guide-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.guide-info-row {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    align-items: flex-start;
+}
+
+.guide-info-label {
+    color: #00ff26;
+    font-weight: 600;
+    font-size: 0.78rem;
+    min-width: 5.5rem;
+    flex-shrink: 0;
+}
+
+.guide-info-desc {
+    color: #999;
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+/* ========== BUTTON LIST (Section 4 - Buttons) ========== */
+.guide-button-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.guide-button-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #262626;
+    border: 1px solid #333;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.guide-button-item:hover {
+    border-color: #444;
+}
+
+.guide-button-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.guide-button-icon.vibrate {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.guide-button-icon.password {
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid rgba(33, 150, 243, 0.15);
+    color: #2196f3;
+}
+
+.guide-button-icon.history {
+    background: rgba(0, 255, 38, 0.1);
+    border: 1px solid rgba(0, 255, 38, 0.15);
+    color: #00ff26;
+}
+
+.guide-button-text h4 {
+    color: #ddd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+
+.guide-button-text p {
+    color: #888;
+    font-size: 0.76rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== NAV LIST (Section 5 - Bottom Nav) ========== */
+.guide-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.guide-nav-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: #262626;
+    border: 1px solid #333;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    transition: border-color 0.2s ease;
+}
+
+.guide-nav-item:hover {
+    border-color: #444;
+}
+
+.guide-nav-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.guide-nav-icon.geofence {
+    background: rgba(0, 255, 38, 0.1);
+    border: 1px solid rgba(0, 255, 38, 0.15);
+    color: #00ff26;
+}
+
+.guide-nav-icon.password {
+    background: rgba(33, 150, 243, 0.1);
+    border: 1px solid rgba(33, 150, 243, 0.15);
+    color: #2196f3;
+}
+
+.guide-nav-icon.logout {
+    background: rgba(230, 57, 70, 0.1);
+    border: 1px solid rgba(230, 57, 70, 0.15);
+    color: #e63946;
+}
+
+.guide-nav-text h4 {
+    color: #ddd;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+}
+
+.guide-nav-text p {
+    color: #888;
+    font-size: 0.76rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== LANGUAGE DEMO (Section 6) ========== */
+.guide-lang-demo {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 1.25rem 0;
+}
+
+.guide-lang-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.guide-lang-btn-demo {
+    width: 3.25rem;
+    height: 3.25rem;
+    background: #262626;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.guide-lang-option:hover .guide-lang-btn-demo {
+    border-color: rgba(0, 255, 38, 0.4);
+    color: #00ff26;
+}
+
+.guide-lang-option span {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+/* ========== SUBSECTIONS (Section 7) ========== */
+.guide-subsection {
+    margin-bottom: 1.25rem;
+}
+
+.guide-subsection:last-child {
+    margin-bottom: 0;
+}
+
+.guide-subsection h3 {
+    color: #00ff26;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(0, 255, 38, 0.1);
+}
+
+/* ========== TIP BOX (Section 8) ========== */
+.guide-tip-box {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    background: rgba(0, 255, 38, 0.05);
+    border: 1px solid rgba(0, 255, 38, 0.15);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    margin-top: 1rem;
+}
+
+.guide-tip-box svg {
+    color: #00ff26;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+}
+
+.guide-tip-box p {
+    color: #999;
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== GUIDE BUTTON (Dashboard Variant) ========== */
+.guide-btn-dashboard {
+    width: calc(100% - 2rem);
+    margin: 0 1rem 1rem;
+    padding: 0.75rem;
+    background: #262626;
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.guide-btn-dashboard:hover {
+    background: #2a2a2a;
+    border-color: rgba(0, 255, 38, 0.3);
+    color: #ccc;
+    transform: translateY(-2px);
+}
+
+.guide-btn-dashboard svg {
+    flex-shrink: 0;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .guide-content {
+        width: 95%;
+        max-height: 88vh;
+        max-height: 88dvh;
+        border-radius: 1rem;
+    }
+
+    .guide-toc-page {
+        padding: 1.5rem 1.25rem 1.25rem;
+    }
+
+    .guide-toc-grid {
+        gap: 0.5rem;
+    }
+
+    .guide-toc-card {
+        padding: 0.85rem 0.625rem;
+    }
+
+    .guide-toc-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .guide-section-content {
+        padding: 0.625rem 1rem 1.25rem;
+    }
+
+    .guide-section-page {
+        max-height: calc(88vh - 1rem);
+        max-height: calc(88dvh - 1rem);
+    }
+
+    .guide-info-row {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .guide-info-label {
+        min-width: auto;
+    }
+
+    .guide-btn-dashboard {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+        margin: 0 1rem 0.75rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .guide-toc-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .guide-toc-card span {
+        font-size: 0.72rem;
+    }
+
+    .guide-section-header h2 {
+        font-size: 1rem;
+    }
+}

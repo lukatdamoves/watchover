@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WatchOver - Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/favicon_icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+</head>
+
+<body>
+
+    <!-- Main Dashboard Layout -->
+    <div class="dashboard-layout">
+        <!-- Left Side - Map (70%) -->
+        <div class="map-section">
+            <div id="map"></div>
+            <!-- Language Switcher -->
+            <div id="language-switcher" class="language-switcher">
+                <button class="lang-btn notranslate" onclick="switchLanguage('en')" title="English">EN</button>
+                <button class="lang-btn notranslate" onclick="switchLanguage('tl')" title="Tagalog">PH</button>
+            </div>
+            <!-- Notification Toggle -->
+            <button id="notifToggleBtn" class="notif-toggle-btn" title="Toggle Notifications">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="notif-slash"></span>
+            </button>
+        </div>
+
+        <!-- Right Side - Dashboard Panel (30%) -->
+        <div class="dashboard-panel">
+            <div id="panel-loader" class="panel-loader">
+                <div class="loader-spinner"></div>
+                <p>Syncing...</p>
+            </div>
+            <!-- Device Selector Section -->
+            <div class="device-selector-section">
+                <div class="device-tabs" id="deviceTabs">
+                    <!-- Devices will be loaded here dynamically -->
+                    <button class="device-tab add-device-btn" id="addDeviceBtn" title="Add Device">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Device Name Section -->
+            <div class="device-name-section">
+                <div class="device-name-container">
+                    <span class="name-label" data-i18n="map.deviceName">Wearer:</span>
+                    <span class="device-name-value" id="deviceName">Loading...</span>
+                </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">
+                        <img src="../watchover_icons/currentlocation.png" alt="" class="info-icon">
+                        <span data-i18n="map.currentLocation">Current location</span>
+                    </div>
+                    <div class="info-value" id="locationName" style="cursor:pointer;"
+                        title="Click to zoom to current location">Loading...</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">
+                        <img src="../watchover_icons/timeoflastupdate.png" alt="" class="info-icon">
+                        <span data-i18n="map.lastUpdate">Time of last update</span>
+                    </div>
+                    <div class="info-value" id="lastUpdate">Loading...</div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">
+                        <img src="../watchover_icons/batterylevel.png" alt="" class="info-icon">
+                        <span data-i18n="map.batteryLevel">Battery level</span>
+                    </div>
+                    <div class="info-value" id="batteryLevel">Loading...</div>
+                </div>
+            </div>
+
+            <button class="vibrate-btn" id="vibrateBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="7" y="4" width="10" height="16" rx="2" />
+                    <path d="M11 17h2" />
+                    <path d="M22 9l-1 2l1 2" />
+                    <path d="M2 9l1 2l-1 2" />
+                </svg>
+                <span data-i18n="map.vibrateDevice">Vibrate Device</span>
+            </button>
+
+            <button class="notification-btn" id="devicePasswordBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    <circle cx="12" cy="16" r="1" />
+                </svg>
+                <span data-i18n="map.changeDevicePassword">Change Device Password</span>
+            </button>
+
+            <!-- Activity History Button -->
+            <button class="history-btn" id="historyBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span data-i18n="map.activityHistory">Activity History</span>
+            </button>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+
+                <button class="nav-btn" id="toggleGeofence" title="Geofence" data-i18n-title="map.drawGeofence">
+                    <span data-i18n="map.drawGeofence">Draw Geofence</span>
+                </button>
+
+                <button class="nav-btn" id="changePasswordBtn" title="Change Password">
+                    <span data-i18n="nav.changePassword">Change Password</span>
+                </button>
+
+                <button class="nav-btn" id="logoutBtn" title="Logout">
+                    <span data-i18n="nav.logout">Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Device Modal -->
+    <div id="addDeviceModal" class="name-modal">
+        <div class="name-modal-content">
+            <div class="name-modal-header">
+                <h2 data-i18n="modal.addNewDevice">Add New Device</h2>
+                <button class="name-modal-close" id="closeAddDeviceModal">&times;</button>
+            </div>
+            <div class="name-modal-body">
+                <div class="input-group">
+                    <label for="newDeviceId" data-i18n="modal.deviceId">Device ID</label>
+                    <input type="text" id="newDeviceId" data-i18n-placeholder="modal.enterDeviceId" placeholder="Enter device ID">
+                </div>
+                <div class="input-group">
+                    <label for="newDevicePassword" data-i18n="modal.devicePassword">Device Password</label>
+                    <input type="password" id="newDevicePassword" data-i18n-placeholder="modal.enterDevicePassword" placeholder="Enter device password">
+                </div>
+                <div class="name-modal-buttons">
+                    <button class="cancel-btn" id="cancelAddDevice" data-i18n="modal.cancel">Cancel</button>
+                    <button class="update-btn" id="saveAddDevice" data-i18n="modal.addDevice">Add Device</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Edit Modal -->
+    <div id="nameModal" class="name-modal">
+        <div class="name-modal-content">
+            <div class="name-modal-header">
+                <h2 data-i18n="modal.editDeviceName">Edit Device Name</h2>
+                <button class="name-modal-close" id="closeNameModal">&times;</button>
+            </div>
+            <div class="name-modal-body">
+                <div class="input-group">
+                    <label for="deviceNameInput" data-i18n="modal.deviceName">Device Name</label>
+                    <input type="text" id="deviceNameInput" data-i18n-placeholder="modal.enterDeviceName" placeholder="Enter device name">
+                </div>
+                <div class="name-modal-buttons">
+                    <button class="cancel-btn" id="cancelNameBtn" data-i18n="modal.cancel">Cancel</button>
+                    <button class="update-btn" id="saveNameBtn" data-i18n="modal.save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-modal-content">
+            <div class="password-modal-header">
+                <h2 data-i18n="modal.changeAccountPassword">Change Account Password</h2>
+                <button class="password-modal-close" id="closePasswordModal">&times;</button>
+            </div>
+            <div class="password-modal-body">
+                <div class="input-group">
+                    <label for="currentPassword" data-i18n="modal.currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" data-i18n-placeholder="modal.enterCurrentPassword" placeholder="Enter current password">
+                </div>
+                <div class="input-group">
+                    <label for="newPassword" data-i18n="modal.newPassword">New Password</label>
+                    <input type="password" id="newPassword" data-i18n-placeholder="modal.enterNewPassword" placeholder="Enter new password">
+                </div>
+                <div class="password-modal-buttons">
+                    <button class="cancel-btn" id="cancelPasswordBtn" data-i18n="modal.cancel">Cancel</button>
+                    <button class="update-btn" id="savePasswordBtn" data-i18n="modal.update">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Device Password -->
+    <div id="devicePasswordModal" class="password-modal">
+        <div class="password-modal-content">
+            <div class="password-modal-header">
+                <h2 data-i18n="modal.changeDevicePassword">Change Device Password</h2>
+                <button class="password-modal-close" id="closeDevicePasswordModal">&times;</button>
+            </div>
+            <div class="password-modal-body">
+                <p style="color: #888; font-size: 0.9em; margin-bottom: 15px;" data-i18n="modal.devicePasswordDescription">
+                    This password is used to link this device to an account.
+                </p>
+                <div class="input-group">
+                    <label for="currentDevicePass" data-i18n="modal.currentDevicePassword">Current Device Password</label>
+                    <input type="password" id="currentDevicePass" data-i18n-placeholder="modal.enterCurrentDevicePassword" placeholder="Enter current device password">
+                </div>
+                <div class="input-group">
+                    <label for="newDevicePass" data-i18n="modal.newDevicePassword">New Device Password</label>
+                    <input type="password" id="newDevicePass" data-i18n-placeholder="modal.enterNewDevicePassword" placeholder="Enter new device password">
+                </div>
+                <div class="password-modal-buttons">
+                    <button class="cancel-btn" id="cancelDevicePassBtn" data-i18n="modal.cancel">Cancel</button>
+                    <button class="update-btn" id="saveDevicePassBtn" data-i18n="modal.update">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- loading screen -->
+    <div id="initial-loader" class="loading-overlay">
+        <div class="loader-spinner"></div>
+        <p>Connecting to WatchOver...</p>
+    </div>
+
+    <!-- Activity History Modal -->
+    <div id="activityModal" class="activity-modal">
+        <div class="activity-content">
+            <div class="activity-header">
+                <h2 data-i18n="activity.title">Activity History</h2>
+                <button class="activity-close" id="activityClose">&times;</button>
+            </div>
+            <div class="activity-toolbar">
+                <select id="activityModeSelect" class="activity-mode-select">
+                    <option value="simple" data-i18n="activity.simple">Simple</option>
+                    <option value="all" data-i18n="activity.all">All</option>
+                </select>
+                <input type="text" id="activitySearchInput" class="activity-search-input"
+                    data-i18n-placeholder="activity.searchPlaceholder" placeholder="Search date or street...">
+                <button id="activitySearchBtn" class="activity-search-btn" title="Search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="activity-list" id="activityList">
+                <div class="activity-loading">
+                    <div class="activity-spinner"></div>
+                    <p class="activity-loading-text" data-i18n="activity.loading">Loading activity history...</p>
+                </div>
+            </div>
+            <div class="activity-pagination" id="activityPagination">
+                <button class="pagination-btn" id="prevPageBtn" disabled data-i18n="activity.previous">← Previous</button>
+                <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+                <button class="pagination-btn" id="nextPageBtn" disabled data-i18n="activity.next">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="../dashboard/common.js"></script>
+    <script src="../dashboard/dashboard.js"></script>
+</body>
+
+</html>

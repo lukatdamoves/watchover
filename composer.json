@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "minishlink/web-push": "^8.0",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

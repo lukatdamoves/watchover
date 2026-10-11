@@ -1,0 +1,575 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-size: 17px;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0.5rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 28rem;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1e1e1e 100%);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 0.625rem 2.5rem rgba(0, 0, 0, 0.5);
+    margin: auto;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    letter-spacing: 0.125rem;
+    margin: 0;
+    line-height: 1;
+}
+
+.login-form {
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.1rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.6rem;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    background: #242424;
+    border-color: #4a4a4a;
+    box-shadow: 0 0 0 3px rgba(0, 255, 38, 0.1);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 3rem;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b0b0b0;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: #e0e0e0;
+}
+
+.register-container {
+    padding: 1.75rem 1.5rem;
+}
+
+.register-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
+}
+
+.register-subtitle {
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.register-form {
+    margin-bottom: 1.25rem;
+}
+
+.register-footer {
+    text-align: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid #3a3a3a;
+}
+
+.register-text {
+    font-size: 0.95rem;
+    color: #b0b0b0;
+    margin-bottom: 0.75rem;
+}
+
+.register-login-btn {
+    background: transparent;
+    border: none;
+    color: #00ff26;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.register-login-btn:hover {
+    color: #00c70a;
+}
+
+.login-btn,
+.create-account-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: transparent;
+    border: 2px solid #00ff26;
+    border-radius: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #00ff26;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.6rem;
+}
+
+.login-btn:hover,
+.create-account-btn:hover {
+    background: #00ff26;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+.login-btn:active,
+.create-account-btn:active {
+    transform: translateY(0);
+}
+
+/* Button spinner */
+.btn-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(0, 255, 38, 0.2);
+    border-radius: 50%;
+    border-top-color: #00ff26;
+    animation: spinButton 1s ease-in-out infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spinButton {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.account-section {
+    text-align: center;
+    margin: 1.1rem 0;
+}
+
+.account-text {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    margin-bottom: 0.75rem;
+}
+
+.language-switcher {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 999;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.lang-btn {
+    padding: 1.1rem;
+    border: 1px solid #555;
+    border-radius: 0.5rem;
+    background: #2a2a2a;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    min-width: 2.75rem;
+    text-align: center;
+}
+
+.lang-btn:hover {
+    background: #3a3a3a;
+    border-color: #00ff26;
+    box-shadow: 0 2px 8px rgba(0, 255, 38, 0.2);
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+}
+
+.verification-modal {
+    display: none;
+    position: fixed;
+    z-index: 10001;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+.verification-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.verification-content {
+    background: linear-gradient(180deg, #2a2a2a 0%, #1e1e1e 100%);
+    border-radius: 1.25rem;
+    padding: 2rem 1.75rem;
+    max-width: 28rem;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 1.25rem 3.75rem rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.verification-icon {
+    margin-bottom: 1.25rem;
+    animation: checkPop 0.6s ease 0.2s both;
+}
+
+@keyframes checkPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.verification-icon svg {
+    width: 56px;
+    height: 56px;
+}
+
+.verification-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #00ff26;
+    margin-bottom: 0.875rem;
+}
+
+.verification-message {
+    font-size: 1rem;
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.verification-note p {
+    font-size: 0.85rem;
+    color: #b0b0b0;
+    margin: 0;
+    padding-bottom: 1rem;
+}
+
+.verification-ok-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: transparent;
+    border: 2px solid #00ff26;
+    border-radius: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #00ff26;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.verification-ok-btn:hover {
+    background: #00ff26;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+
+.verification-ok-btn:active {
+    transform: translateY(0);
+}
+
+.forgot-password-link {
+    display: table;
+    margin-left: auto;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: #00ff26;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password-link:hover {
+    color: #00c70a;
+    text-decoration: underline;
+}
+
+#forgotPasswordModal .verification-content {
+    position: relative;
+}
+
+#forgotPasswordModal .guide-close {
+    position: absolute;
+    right: 0.875rem;
+    top: 0.875rem;
+}
+
+#forgotPasswordModal .input-group {
+    margin: 1.25rem 0;
+}
+
+.custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10002;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.custom-alert-box {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
+    border-left: 5px solid #ff4444;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: calc(100% - 2rem);
+    max-width: 500px;
+    pointer-events: auto;
+    animation: slideDown 0.3s ease, fadeOut 0.3s ease 2.7s;
+}
+
+.custom-alert-box.success {
+    border-left-color: #00ff26;
+}
+
+.custom-alert-box.error {
+    border-left-color: #ff4444;
+}
+
+.custom-alert-box.warning {
+    border-left-color: #ffa500;
+}
+
+.custom-alert-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.custom-alert-message {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .page.active {
+        height: 100vh;
+        overflow-y: auto;
+        padding: 1rem;
+        align-items: flex-start;
+    }
+
+    .title-container {
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .container {
+        padding: 1.75rem 1.25rem;
+        margin: 0;
+    }
+
+    .language-switcher {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        max-width: 30rem;
+        padding: 2.25rem 1.75rem;
+    }
+
+    .title {
+        font-size: 2.25rem;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        max-width: 32rem;
+        padding: 2.5rem 2rem;
+    }
+
+    .title {
+        font-size: 2.4rem;
+    }
+
+    .logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .title-container {
+        margin-bottom: 1.75rem;
+        gap: 1.1rem;
+    }
+
+    .login-btn,
+    .create-account-btn,
+    .guide-btn {
+        padding: 0.9rem;
+    }
+
+    .register-title {
+        font-size: 1.6rem;
+    }
+}

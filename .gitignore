@@ -1,0 +1,23 @@
+# IDE
+.vscode/
+.idea/
+.antigravity/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Local backup artifacts
+*.bak
+*.sql.gz
+
+# Secrets - never commit the real environment file
+.env
+
+# Dependencies installed on the server via CLI (composer install)
+vendor/
